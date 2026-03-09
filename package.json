@@ -1,13 +1,11 @@
 {
-  "name": "todo-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "todo-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
+    "dev:backend": "npm run dev -w packages/backend",
+    "dev:frontend": "npm run dev -w packages/frontend"
+  }
 }
