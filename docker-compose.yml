@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:15-alpine
+    image: postgres:18-alpine # <--- Upgraded to the latest
     container_name: todo-db
     restart: always
     environment:
@@ -9,6 +9,11 @@ services:
       POSTGRES_DB: todo_db
     ports:
       - "5432:5432"
+    healthcheck: # DevOps Tip: Ensures DB is "Ready" before other services start
+      test: ["CMD-SHELL", "pg_isready -U user -d todo_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
