@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "dev:backend": "npm run dev -w packages/backend",
-    "dev:frontend": "npm run dev -w packages/frontend"
+    "dev:frontend": "npm run dev -w packages/frontend",
+    "install:all": "npm install"
   }
 }
