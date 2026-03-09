@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:18-alpine # <--- Upgraded to the latest
+    image: postgres:18-alpine
     container_name: todo-db
     restart: always
     environment:
@@ -9,13 +9,25 @@ services:
       POSTGRES_DB: todo_db
     ports:
       - "5432:5432"
-    healthcheck: # DevOps Tip: Ensures DB is "Ready" before other services start
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user -d todo_db"]
       interval: 5s
       timeout: 5s
       retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: todo-pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: rozi@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80" # You will access pgAdmin at http://localhost:8080
+    depends_on:
+      - postgres
 
 volumes:
   postgres_data:
